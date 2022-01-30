@@ -38,8 +38,11 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
-}
+    return expr.match(/.{1,10}/g).reduce((text, code) => {
+        if (code === '**********') return text + ' ';
+        return  text + MORSE_TABLE[code.match(/.{1,2}/g).reduce((letter, s2) => s2 === '00' ? letter + '': s2 === '10' ? letter + '.': letter + '-', '')];
+      }, '');
+};
 
 module.exports = {
     decode
